@@ -1,0 +1,18 @@
+﻿using HostileMars.UI;
+
+template CraftingRecipe {
+
+    required ImageSource icon;
+    required string label;
+    required bool isCraftable;
+    
+    attr:isCraftable = isCraftable;
+    
+    render {
+    
+        Div(style:BackgroundImage = icon, style = [@craft-recipe-icon]);
+        ItemName(label, style = [@craft-recipe-item-label]);
+            
+    }
+    
+}

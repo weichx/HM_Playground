@@ -1,0 +1,17 @@
+{
+    "implicitNamespaces": [],
+    "dependencies": [
+        {
+            "alias": "",
+            "autoImport": false,
+            "guid": "d5d3155fd5e714d40bc88b98cfda09bd"
+        }
+    ],
+    "colors": [],
+    "fonts": [],
+    "videos": [],
+    "sounds": [],
+    "gameObjects": [],
+    "cursors": [],
+    "gradients": []
+}

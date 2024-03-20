@@ -1,0 +1,19 @@
+﻿using HostileMars.UI;
+
+@SetupToggleControl(indexValue = (int)tabId, disabled = isDisabled)
+template PanelNavButton {
+
+    required MachinePanelTab tabId;
+    required ImageSource icon;
+    required string label;
+    optional bool isDisabled = false;
+    
+    render {
+    
+        Div(style:BackgroundImage = icon, style = [@panel-nav-icon]);      
+          
+        MenuLabel(label);
+        
+    }
+    
+}

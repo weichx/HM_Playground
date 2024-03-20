@@ -1,0 +1,85 @@
+﻿import BasicElements;
+using HostileMars.UI;
+
+template InventoryGrid : ItemContainer {
+
+    state TopLevelUIState topLevelState = $runtime.GetRootData<TopLevelUIState>();
+
+    render {
+    
+        Div(style = [@gradient], attr:right);
+        Div(style = [@line-grid]);
+        Div(style = [@gradient-blob], attr:right);
+        Div(style = [@gradient-blob], attr:lower, attr:right);
+
+        Inventory inventory = topLevelState.inventory;
+        
+        Div(style = [@inventory-column]) {   
+        
+            Header("Inventory", style = [@decorated-heading]);
+            
+            Div(style = [@decoration]);
+            
+            HorizontalPagerSmall(inventory.selectedPageIndex, style = [@inventory-pager]) {
+            
+                SvgIcon24(`T_UI_ShoulderButton_Left`, style = [@shoulder-button],  mouse:click => topLevelState.eventQueue.PrevInventoryPage()) {
+                    Label("LT", style = [@shoulder-button-label]);
+                }
+                    
+                repeat(i in inventory.pages.Length) {
+                    PagerItemSmall(i, mouse:click => topLevelState.eventQueue.SetInventoryPage(i));
+                }   
+                     
+                SvgIcon24(`T_UI_ShoulderButton_Right`, style = [@shoulder-button], mouse:click => topLevelState.eventQueue.NextInventoryPage()) {
+                    Label("RT", style = [@shoulder-button-label], attr:right);
+                }  
+                         
+            }
+                        
+            InventoryPreview(topLevelState.inventory);
+            
+            InventoryPage selectedPage = topLevelState.inventory.GetSelectedPage();
+            
+            Div(style = [@inventory-grid]) {
+                    
+                repeat(inventorySlot in selectedPage.slots) [index] {
+                    InventorySlot(                       
+                        icon = inventorySlot.icon,
+                        cornerColor = inventorySlot.cornerColor,
+                        stackSize = inventorySlot.stackSize,
+                        attr:drag-target = topLevelState.GetDragAttribute(inventorySlot),
+                        attr:drag-origin = topLevelState.IsDragOrigin(inventorySlot.slotId),
+                        drag:create => $companion.CreateDrag(inventorySlot),
+                        drag:drop<DragItemEvent> => topLevelState.eventQueue.MoveInventoryItem(topLevelState.activeDragEvent.item.coordinate, inventorySlot.coordinate)
+                    ); 
+                }
+             
+            }
+        
+            HeaderMedium("Ammo", style = [@inventory-ammo-heading]);  
+              
+            Div(style = [@horizontal-separator, @inventory-ammo-separator]);
+
+            Div(style = [@inventory-grid]) {
+
+                repeat(inventorySlot in topLevelState.inventory.ammoSlots) {
+                    
+                    InventorySlot(
+                        icon = inventorySlot.icon,
+                        cornerColor = inventorySlot.cornerColor,
+                        stackSize = inventorySlot.stackSize
+                    );
+                    
+                }
+                
+            }
+                            
+            Div(style = [@decoration], attr:invert);
+
+        }
+        
+    }
+
+}
+
+

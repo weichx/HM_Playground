@@ -1,0 +1,69 @@
+
+style <AppRoot> {
+    BackgroundColor = gainsboro;
+    BackgroundImage = "HM_Background";
+    BackgroundSize = Cover;
+    LayoutType = Stack;
+}
+
+style <Label> {
+    TextFontSize = 16px;
+    TextFontAsset = "Electrolize";
+    TextFontWeight = Bold;
+    TextColor = white;
+    TextLineHeight = 18px;
+}
+
+style <Label2> {
+    TextFontSize = 20px;
+    TextColor = white;
+    TextLineHeight = 24px;
+}
+ 
+style <ItemName> {
+    TextFontSize = 18px;
+    TextColor = white;
+    TextLineHeight = 22px;
+    TextTransform = UpperCase;
+    TextFontWeight = Medium;
+}
+
+style <Header> {
+    TextFontAsset = "Rajdhani";
+    TextFontWeight = Medium;
+    TextColor = white;
+    TextFontSize = 36px;
+    TextColor = #979797;
+    TextTransform = UpperCase;
+}
+
+style <HeaderMedium> {
+    TextFontAsset = "Rajdhani";
+    TextFontWeight = Medium;
+    TextColor = white;
+    TextFontSize = 24px;
+    TextColor = #979797;
+    TextTransform = UpperCase;
+}
+
+style <MenuLabel> {
+    TextFontSize = 14px;
+    TextFontAsset = "Rajdhani";
+    TextFontWeight = Medium;
+    TextColor = white;
+    TextTransform = UpperCase;
+}
+
+style <Subheader> {
+    TextFontAsset = "Electrolize";
+    TextFontSize = 22px;
+    TextLineHeight = 26px;
+    TextColor = @subheaderColor;
+    TextTransform = UpperCase;
+}
+
+style <LabelSemiBold> {
+    TextFontAsset = "Rajdhani";
+    TextFontWeight = SemiBold;
+    TextColor = white;
+}

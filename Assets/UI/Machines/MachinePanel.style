@@ -1,0 +1,38 @@
+﻿
+style <MachinePanel> {
+    LayoutType = Stack;
+    PreferredSize = 800px 1vh;
+    PaddingLeft = 50px;
+        
+    transition spring(default) = AlignmentOffSetX;
+    
+}
+
+style panel-nav-content {
+    LayoutType = Horizontal;
+    SpaceBetween = 8px;
+    PreferredSize = 1s 32px;
+    Padding = 1s;
+    MarginBottom = 12px;
+}
+
+style <PanelNavButton> {
+    Padding = 1s;   
+    SpaceBetweenVertical = 8px;
+    PreferredSize = 90px 100px;
+}
+
+style panel-nav-icon {
+    PreferredSize = 48px;
+    PixelSnapping = Layout;
+}
+
+style machine-panel-column {
+    PaddingTop = 32px;
+    PreferredSize = 600px 1s;
+}
+
+style line {
+    Margin = 120px;
+    PreferredSize = 4px 300px;
+}

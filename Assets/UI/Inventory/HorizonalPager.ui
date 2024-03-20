@@ -1,0 +1,69 @@
+﻿using HostileMars.UI;
+using System.Collections.Generic;
+using System;
+
+import BasicElements;
+
+template HorizontalPager {
+
+    required Inventory inventory;
+    
+    optional Action onNextClicked;
+    optional Action onPrevClicked;
+    
+    slot rightShoulder;
+    slot leftShoulder;
+    
+    render {
+    
+        state UIEventQueue eventQueue = $runtime.GetRootData<TopLevelUIState>().eventQueue;
+
+        state int previousPageIndex = -1;
+    
+        Div(style = [@pager-indicator-shadow], attr:animation-ready = previousPageIndex != -1) [&runner] {
+           Div(style = [@nav-item-highlight]);
+           Div(style = [@pager-indicator-line]);
+        }
+        
+        Div(style = [@pager-content]) {
+                    
+            render slot->leftShoulder();
+                                         
+            SvgIcon24(`T_UI_ShoulderButton_Left`, style = [@shoulder-button],  mouse:click => eventQueue.PrevInventoryPage()) {
+                Label("LT", style = [@shoulder-button-label]);
+            }
+            
+            state List<ElementReference> elements = new List<ElementReference>();
+            run elements.Clear();
+            
+            repeat(i in inventory.pages.Length) {
+            
+                Div(style = [@nav-item]) [&el] {
+                    run elements.Add(el);                   
+                    Label2(i);
+                }
+                
+            }
+            
+            render slot->rightShoulder();
+            
+            SvgIcon24(`T_UI_ShoulderButton_Right`, style = [@shoulder-button], mouse:click => eventQueue.NextInventoryPage()) {
+                Label("RT", style = [@shoulder-button-label], attr:right);
+            }
+            
+        }
+            
+        run {
+            
+            if(runner.hasValidLayout && previousPageIndex != inventory.selectedPageIndex) {
+                // animate transiton
+                ElementReference targetElement = elements[inventory.selectedPageIndex];
+                runner.style.SetAlignmentOffsetX(targetElement.GetLayoutLocalPosition().x);
+                previousPageIndex = inventory.selectedPageIndex;
+            }
+            
+        }
+          
+    }
+    
+}

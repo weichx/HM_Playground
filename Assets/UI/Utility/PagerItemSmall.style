@@ -1,0 +1,5 @@
+﻿style <PagerItemSmall> {
+    PreferredSize = 28px 26px;
+    LayoutType = Stack;
+    PaddingHorizontal = 1s;
+}

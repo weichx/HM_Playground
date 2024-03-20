@@ -1,0 +1,22 @@
+﻿style craft-recipe-icon {
+    PreferredSize = 48px;
+    MarginHorizontal = 16px;
+}
+
+style <CraftingRecipe> {
+
+    PreferredSize = 300px 70px;
+    PaddingVertical = 1s;
+    BackgroundColor = @primaryBlue;
+    LayoutType = Horizontal;
+    Margin= 4px;
+    CornerRadius = 4px;
+    
+    [hover] {
+        BackgroundColor = @itemHoverBlue;
+    }
+    
+}
+
+style craft-recipe-item-label {
+}

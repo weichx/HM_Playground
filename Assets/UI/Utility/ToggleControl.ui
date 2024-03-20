@@ -1,0 +1,43 @@
+﻿using HostileMars.UI;
+
+decorator TogglableGroup {
+
+    optional int selectedIndex from controller.selectedIndex;
+    optional int sequenceStart = 0;
+
+    state ToggleController controller = new ToggleController();
+
+    before:update => {
+        controller.parentController = $runtime.PeekContext<ToggleController>();
+        $runtime.PushContext(controller);
+        controller.Setup($root, sequenceStart);
+    }
+
+    before:finish => {
+        controller.TearDown();
+        $runtime.PopContext<ToggleController>();
+    }
+    
+}
+
+decorator SetupToggleControl {
+    optional int? indexValue;
+    optional bool disabled;
+
+    state ToggleController controller;
+    
+    computed bool IsSelected => controller.selectedIndex == indexValue;
+    
+    before:update => {
+        if (!disabled) {
+            controller ??= $runtime.PeekContext<ToggleController>();
+            controller?.RegisterElement($root, indexValue);
+        }
+    }
+
+    mouse:click => {
+        if (!disabled) {
+            controller?.Select($root);
+        }
+    }
+}

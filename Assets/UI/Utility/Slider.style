@@ -1,0 +1,25 @@
+﻿style <Slider> {
+    PreferredWidth = 300px;
+    PaddingVertical = 1s;
+    LayoutType = Stack;
+}
+
+style slider-handle {
+    PreferredSize = 12px 22px;
+    AlignmentTargetX = Parent;
+    ShadowColor = rgb(0, 70, 255);
+    ShadowSpread = 2;
+    ShadowBlur = 15;
+}
+
+style slider-track {
+    PreferredWidth = 1s;
+    PreferredHeight = 2px;
+    BackgroundColor = @darkerGrey;
+}
+
+style slider-handle-color {
+    PreferredSize = 1s;
+    CornerRadius = 25%;
+    BackgroundColor = white;
+}

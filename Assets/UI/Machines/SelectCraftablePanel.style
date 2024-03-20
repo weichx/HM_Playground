@@ -1,0 +1,283 @@
+﻿style <SelectCraftablePanel> {
+    PreferredSize = 600px 1s;
+    Overflow = Hidden;
+}
+
+style machine-panel-progress-container {
+    LayoutType = Stack;
+    PreferredSize = 256px;
+    AlignmentOffsetX = -20px;
+}
+
+style machine-panel-progress-underlay {
+    PreferredSize = 1s;
+    BackgroundImage = "T_UI_ProgressRing_BG";
+    BackgroundTint = #717171;
+}
+
+style machine-panel-progress-overlay {
+
+    PreferredSize = 1s;
+    RevealMode = RadialSweepBottom;
+    BackgroundImage = "T_UI_ProgressRing_Bar 1";
+    Opacity = 75%;
+}
+
+style machine-panel-progress-overlay2 {
+    PreferredSize = 1s;
+    RevealMode = RadialSweepTop;
+    BackgroundImage = "T_UI_ProgressRing_BG";
+}
+
+style machine-panel-pager {
+    PreferredWidth = 5s;
+    MarginTop = 32px;
+}
+
+style craftable-subheader {
+    MarginHorizontal = 1s;
+    MarginTop = 12px;
+}
+
+style subheader-decoration {
+    BackgroundImage = "T_UI_Subheading_Decoration";
+    PreferredSize = 5s 28px;
+    BackgroundTint = #909394;
+    MarginVertical = 8px;
+    
+    [attr:bottom] {
+        BackgroundMirror = Vertical;
+    }
+}
+
+style craftable-panel-container {
+    PreferredSize = 1s 1s;
+    LayoutType = Horizontal;
+    PaddingTop = 60px;
+    
+    transition CubicEaseIn 150ms = AlignmentOffsetX;
+    
+    [attr:showing-crafting] {
+        AlignmentOffsetX = -1w;
+    }
+    
+}
+
+style <SelectCraftable_RecipeSelection> {
+    PreferredSize = 400px;
+    PaddingHorizontal = 1s;
+    MarginRight = 200px;
+}
+
+style crafting-view {
+    PreferredSize = 400px 1s;
+    BackgroundColor = white;
+}
+
+style machine-amount-container {
+    PreferredWidth = 400px;
+    PaddingHorizontal = 1s;
+}
+
+style amount-label-container {
+    LayoutType = Horizontal;
+    PaddingTop = 1s;
+    MarginBottom = 12px;
+}
+
+style <AmountLabelCurrent> {
+    TextFontAsset = "Rajdhani";
+    TextFontWeight = SemiBold;
+    TextFontSize = 30pt;
+    TextColor = white;
+}
+
+style <AmountLabelCapacity> {
+    TextFontAsset = "Rajdhani";
+    TextFontWeight = SemiBold;
+    TextFontSize = 24pt;
+    TextColor = @mutedGrey;
+}
+
+style input-output-column {
+    PreferredSize = 1cnt 1s;
+    PaddingHorizontal = 1s;
+}
+
+style progress-column {
+    PreferredSize = 250px 1s;
+}
+
+style craftable-panel-column-container {
+    LayoutType = Horizontal;
+    PreferredSize = 1cnt 375px;
+}
+
+style deco-column {
+    PreferredSize = 100px 1s;
+}
+
+style <SelectCraftable_Crafting> {
+    PreferredSize = 1s 1s;
+}
+
+style current-crafting-icon {
+
+    PreferredSize = 128px;
+    Margin = 1s;
+
+}
+
+style progress-label {
+    PreferredWidth = 150px;
+    MarginHorizontal = 1s;
+}
+
+style button-container {
+    LayoutType = Horizontal;
+    SpaceBetweenHorizontal = 30px;
+    MarginTop = 32px;
+    MarginBottom = 32px;
+}
+
+style button-left {
+    BackgroundImage = "T_UI_Button_Arrow";
+    PreferredWidth = 150px;
+    PreferredHeight = 40px;
+    PaddingLeft = 1s;
+    PaddingRight = 20px;
+    PaddingVertical = 1s;
+}
+
+style button-center {
+    BackgroundImage = "T_UI_Button_Arrow_Center";
+    PreferredWidth = 150px;
+    PreferredHeight = 40px;
+    Padding = 1s;
+}
+
+style button-right {
+    BackgroundImage = "T_UI_Button_Arrow";
+    PreferredWidth = 150px;
+    PreferredHeight = 40px;
+    BackgroundMirror = Horizontal;
+    PaddingVertical = 1s;
+    PaddingRight = 1s;
+    PaddingLeft = 20px;
+}
+
+
+style <ButtonLabel> {
+    TextFontSize = 24px;
+    TextLineHeight = 24px;
+    TextTransform = UpperCase;
+    TextFontWeight = SemiBold;
+    TextCharacterSpacing = 2;
+}
+
+style change-button {
+    mixin(button-left);
+    BackgroundTint = #D63E31;
+    [attr:disabled] {
+        BackgroundTint = opacity(#D63E31, 50%);
+    }
+}
+
+style stop-crafting-button {
+    mixin(button-center);
+    BackgroundTint = #D63E31;
+}
+
+style start-crafting-button {
+    mixin(button-center);
+    BackgroundTint = #ABE7FF;
+    [attr:disabled] {
+        BackgroundTint = opacity(#ABE7FF, 50%);
+    }
+}
+
+style take-all-button {
+    mixin(button-right);
+
+    BackgroundTint = #95DEFB;
+    
+    [attr:disabled] {
+        BackgroundTint = #396576;
+    }
+}
+
+style mod-stats-container {
+    PreferredSize = 550px 140px;
+    LayoutType = Horizontal;
+    SpaceBetweenHorizontal = 32px;
+}
+
+style mod-stats-info {
+    PreferredSize = 1s;
+}
+
+style stats-container {
+    PreferredWidth = 1s;
+    MarginTop = 8px;
+    SpaceBetweenVertical = 8px;
+}
+
+style mod-container {
+    LayoutType = Horizontal;
+    PreferredWidth = 1s;
+    MarginTop = 8px;
+    PaddingHorizontal = 1s;
+}
+
+style mod-stats-separator {
+    PreferredHeight = 1s;
+    BackgroundColor = @mutedGrey;
+    PreferredWidth = 1.5px;
+}
+
+style stat-row {
+    LayoutType = Horizontal;
+    PreferredWidth = 1s;
+    SpaceBetweenHorizontal = 1s;
+}
+
+style input-decoration {
+    PreferredSize = 87px 18px;
+    MarginTop = 64px;
+    BackgroundImage = "T_UI_Craft_Deco_Curve";
+    BackgroundMirror = Vertical;
+}
+
+style output-decoration {
+    PreferredSize = 87px 18px;
+    MarginTop = 128px;
+    BackgroundImage = "T_UI_Craft_Deco_Curve";
+}
+
+style input-output-section {
+    MarginBottom = 32px;
+}
+
+style input-row {
+    PreferredSize = 175px 1cnt;
+    LayoutType = HorizontalWrap;
+    SpaceBetweenHorizontal = 8px;
+    PaddingTop = 8px;
+    MarginBottom = 32px;
+}
+
+style crafting-label-container {
+    PreferredSize = 1s;
+    PaddingHorizontal = 1s;
+    LayoutType = Vertical;
+}
+
+style crafting-label {
+    PreferredWidth = 150px;
+}
+
+style crafting-icon {
+    PreferredSize = 32px;
+    BackgroundImage = "T_UI_Crafting_Cog";
+    MarginTop = 8px;
+}

@@ -1,0 +1,54 @@
+﻿style <HorizontalPagerSmall> {
+    PreferredSize = 400px 32px;
+    MarginBottom = 12px;
+    BorderColor = @decoratorGrey;
+    BorderBottom = 2px;
+}
+
+
+style pager-small-indicator-shadow {
+    PreferredWidth = 32x;
+    PreferredHeight = 4px;
+    CornerRadius = 50%;
+    LayoutBehavior = Ignored;
+    AlignmentTargetY = Parent;
+    AlignmentDirectionY = End;
+    AlignmentOffsetY = -1px;
+    ShadowColor = opacity(#0054FF, 80%);
+    ShadowSpread = 0;
+    ShadowBlur = 30;
+    Padding = 1s;
+    
+    [attr:animation-ready] {
+        transition spring(stiff) = AlignmentOffsetX;
+    }       
+     
+    // we don't have a positin for one frame, make sure we're offscreen 
+
+    AlignmentOffsetX = -99999;
+   
+}
+
+
+style pager-small-indicator-line {
+    CornerRadius = 50%;
+    PreferredWidth = 28px;
+    PreferredHeight = 4px;
+    BackgroundColor = white;
+}
+
+style pager-small-item-highlight {
+    BackgroundImage = "nav-gradient";
+    PreferredSize = 28px 64px;
+    LayoutBehavior = Ignored;
+    AlignmentTargetY = Parent;
+    AlignmentDirectionY = End;
+    
+}
+
+style pager-small-content {
+    LayoutType = Horizontal;
+    SpaceBetween = 8px;
+    PreferredSize = 1s 32px;
+    Padding = 1s;
+}

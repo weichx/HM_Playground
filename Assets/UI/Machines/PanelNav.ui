@@ -1,0 +1,39 @@
+﻿using HostileMars.UI;
+
+@TogglableGroup(selectedIndex = (int)selectedTab) [selectedIndex, controller]
+template PanelNav {
+
+    optional MachinePanelTab selectedTab = MachinePanelTab.Craft;
+    
+    slot implicit;
+
+    render {
+
+        // we want first frame we have a layout 
+        state int frameId = 0;
+                       
+        Div(style = [@panel-nav-indicator-shadow], attr:animation-ready = frameId > 2) [&runner] {
+            Div(style = [@panel-nav-highlight]);
+            Div(style = [@panel-nav-indicator-line]);
+        }
+               
+        
+        Div(style = [@panel-nav-content]) {
+        
+            render slot->implicit;
+    
+        }
+
+        run {
+            
+            ElementReference targetElement = controller.GetSelectedElement();
+            runner.style.SetAlignmentOffsetX(targetElement.GetLayoutLocalPosition().x);
+            runner.style.SetPreferredWidth(targetElement.GetLayoutSize().width);
+        
+            frameId++;
+            selectedTab = (MachinePanelTab)selectedIndex;
+            
+        }
+    }
+
+}

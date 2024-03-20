@@ -1,0 +1,27 @@
+using HostileMars.UI;
+template AppRoot {
+
+    render {
+        
+        state TopLevelUIState topLevelState = $runtime.GetRootData<TopLevelUIState>();
+        
+        if($runtime.frameId > 10) {
+            MachinePanel();
+            InventoryGrid();
+        }
+
+        if(topLevelState.activeItemDragEvent != null) {
+        
+            InventorySlot(
+                icon = topLevelState.activeItemDragEvent.item.icon, 
+                cornerColor = topLevelState.activeItemDragEvent.item.cornerColor, 
+                stackSize = topLevelState.activeItemDragEvent.item.stackSize, 
+                attr:drag-preview, 
+                style = [@inventory-drag-preview]
+            ); 
+        
+        }
+        
+    }
+    
+}

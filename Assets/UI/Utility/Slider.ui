@@ -1,0 +1,25 @@
+﻿using HostileMars.UI;
+
+template Slider : Slider {
+
+    optional float value from $companion.Value;
+    optional float rangeStart from $companion;
+    optional float rangeEnd from $companion;
+   
+    mouse:click => $companion.UpdateDragHandleOnClick($evt.MousePosition);
+           
+    render {
+
+        Div(style = [@slider-track]);
+        
+        Div(style:AlignmentOffsetX = AlignmentOffset.ParentWidth($companion.percentage),
+            style = [@slider-handle],
+            drag:create => $companion.CreateDrag(),
+            drag:move => $companion.UpdateDragHandle($evt.MousePosition)
+        ) {
+            Div(style = [@slider-handle-color]);
+        }
+        
+    } 
+
+}

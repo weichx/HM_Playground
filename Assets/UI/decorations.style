@@ -1,0 +1,76 @@
+﻿
+style gradient-blob {
+
+    PreferredSize = 800px 400px;
+    ShadowBlur = 550;
+    ShadowSpread = 30;
+    ShadowColor = rgba(0, 101, 255, 148);
+    LayoutBehavior = Ignored;
+    CornerRadius = 50%;
+    AlignmentTargetX = Parent;
+    AlignmentTargetY = Screen;
+    AlignmentOffsetX = -0.5w;
+    AlignmentOffsetY = -0.75h;
+    
+    [attr:right] {
+        AlignmentDirectionX = End;
+    }
+    
+    [attr:lower] {
+        AlignmentDirectionY = End;
+    }
+    
+}
+
+style line-grid {
+
+    PreferredSize = 1s;
+    BackgroundImage = "T_UI_Line_Grid";
+    BackgroundRepeat = Repeat;
+    BackgroundSize = 128px;
+    BackgroundTint = white;
+    Opacity = 7%;
+
+}
+
+style gradient {
+
+    PreferredSize = 600px 1vh;
+    ShadowColor = rgba(19, 30, 45, 220);
+    ShadowBlur = 400;
+    ShadowSpread = 300;
+    LayoutBehavior = Ignored;   
+    AlignmentTargetX = Parent;
+    [attr:right] {
+        AlignmentDirectionX = End;
+    }
+}
+
+style decoration {
+    
+    BackgroundImage = "lines";
+    PreferredSize = 773px 49px;
+    AlignmentTargetX = Parent;
+    AlignmentDirectionX = End;
+    AlignmentOffsetY = -20px;
+    
+    [attr:right] {
+        AlignmentDirectionX = Start;
+        BackgroundMirror = Horizontal;
+        AlignmentOffsetX = -100px;
+    }
+    
+    [attr:bottom-right] {
+        AlignmentDirectionX = Start;
+        BackgroundMirror = Both;
+        AlignmentTargetY = Screen;
+        AlignmentDirectionY = End;
+        AlignmentOffsetY = 20px;
+        AlignmentOffsetX = -100px;
+    }
+    
+    [attr:invert] {
+        MarginTop = 1s;
+        BackgroundMirror = Vertical;
+    }
+}

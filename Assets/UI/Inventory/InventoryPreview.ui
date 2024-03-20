@@ -1,0 +1,28 @@
+﻿using HostileMars.UI;
+
+template InventoryPreview {
+
+    required Inventory inventory;
+    
+    render {
+    
+        state UIEventQueue eventQueue = $runtime.GetRootData<TopLevelUIState>().eventQueue;
+
+        repeat(page in inventory.pages) [index] {
+        
+            state InventoryPainter painter = new InventoryPainter();
+            
+            run painter.color = index == inventory.selectedPageIndex ?  `#7D8896` : `#656565`;
+            run painter.page = page;
+             
+            Div(
+                style = [@inventory-preview-page], 
+                after:create => $element.AddPainter(painter),
+                mouse:click => eventQueue.SetInventoryPage(index),
+                drag:enter<DragItemEvent> => eventQueue.SetInventoryPage(index)    
+            );
+            
+        }
+        
+    }
+}

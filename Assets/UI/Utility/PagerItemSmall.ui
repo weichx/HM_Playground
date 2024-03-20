@@ -1,0 +1,14 @@
+﻿using HostileMars.UI;
+using System.Collections.Generic;
+using System;
+
+@SetupToggleControl()
+template PagerItemSmall {   
+    
+    required string text;
+    
+    render {
+        Label2(text);
+    }
+    
+}

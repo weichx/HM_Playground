@@ -1,0 +1,14 @@
+﻿using HostileMars.UI;
+using UnityEngine;
+
+template SectionLabel {
+    
+    required string sectionLabel;
+    
+    render {
+        
+        Text(sectionLabel, style = [@section-label-text]);
+        
+    }
+    
+}

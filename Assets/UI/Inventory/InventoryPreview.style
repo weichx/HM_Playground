@@ -1,0 +1,13 @@
+﻿style <InventoryPreview> {
+    
+    PreferredSize = 4s 64px;
+    LayoutType = Horizontal;
+    Padding = 1s;
+    SpaceBetweenHorizontal = 8px;
+    MarginTop = 8px;
+    MarginBottom = 12px;
+}
+
+style inventory-preview-page {
+    PreferredSize = 48px 48px;
+}

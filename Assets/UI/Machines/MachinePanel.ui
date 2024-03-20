@@ -1,0 +1,46 @@
+﻿import BasicElements;
+using HostileMars.UI;
+
+template MachinePanel {
+
+    render {
+     
+        Div(style = [@gradient]);
+        Div(style = [@line-grid]);
+
+        Div(style = [@gradient-blob]);
+        Div(style = [@gradient-blob], attr:lower);
+        
+        Div(style = [@machine-panel-column]) {
+            
+            Header("Scrap Machine", style = [@decorated-heading]);
+                        
+            Div(style = [@decoration], attr:right);
+                        
+            PanelNav() [selectedTab] {
+                
+                PanelNavButton(MachinePanelTab.Craft, `T_UI_Icon_Craft`, "CRAFT");
+                PanelNavButton(MachinePanelTab.Upgrade, `T_UI_Icon_Upgrade`, "UPGRADE");
+                
+            }
+            
+            match(selectedTab) {
+
+                case MachinePanelTab.Craft: {
+                    SelectCraftablePanel();
+                }
+
+                case MachinePanelTab.Upgrade: {
+//                    state var painter = new SvgIconPainter(`line_icon`);
+//                    Div(style = [@line], after:create => $element.AddPainter(painter));
+                }
+
+            }
+
+            Div(style = [@decoration], attr:bottom-right);
+
+        }
+           
+    }    
+
+}

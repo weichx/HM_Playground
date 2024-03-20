@@ -1,0 +1,28 @@
+﻿
+style <SectionLabel> {
+    
+    PreferredWidth = 1s;
+    BorderBottom = 2px;
+    BorderColor = @mutedGrey;
+    // PaddingHorizontal = 1s;
+    MarginBottom = 4px;             
+    PaddingBottom = 4px;             
+}
+
+style section-label-text {
+    
+    TextTransform = UpperCase;
+    TextFontAsset = "Rajdhani";
+    TextFontSize = 20px;
+    TextLineHeight = 24px;
+    TextFontWeight = Medium;
+    TextColor = white;
+    AlignmentOffsetX = 0.5pw;
+    AlignmentOriginX = -0.5w;
+    AlignmentTargetX = Parent;
+    
+    [when parent attr:small] {
+        TextFontSize = 14pt;
+    }
+    
+}

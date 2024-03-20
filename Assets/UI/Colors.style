@@ -1,0 +1,8 @@
+﻿const primaryBlue = #29353F;
+const itemHoverBlue = #1791B0;
+const hoverBlue = #63A6BD;
+const backgroundBlue = #292E38;
+const decoratorGrey = opacity(#FFFFFF, 40%);
+const subheaderColor = #6D6D6D;
+const mutedGrey = rgb(117, 117, 117);
+const darkerGrey = rgb(65, 65, 65);

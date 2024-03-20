@@ -1,0 +1,24 @@
+﻿using HostileMars.UI;
+
+template InventorySlot {
+    
+    required ImageSource icon;
+    required Color32 cornerColor;
+    required int stackSize;
+         
+    render {
+    
+        Div(style = [@inventory-stack-base]) {
+            
+            Div(style = [@inventory-icon], style:BackgroundImage = icon);
+            
+            Div(style = [@inventory-stack-corner], style:BackgroundTint = cornerColor);
+        }
+        
+        if(stackSize >= 0) {
+            Label(stackSize);
+        }
+        
+    }
+    
+}

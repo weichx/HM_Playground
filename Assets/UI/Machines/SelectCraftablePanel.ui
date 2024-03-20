@@ -1,0 +1,257 @@
+﻿import BasicElements;
+using HostileMars.UI;
+using UnityEngine;
+
+
+template SelectCraftable_RecipeSelection {
+    
+    required MachineInfo machineInfo;
+    
+    state UIEventQueue eventQueue = $runtime.GetRootData<TopLevelUIState>().eventQueue;
+
+    render {
+         // actions are local here because I don't think we care what machine page the player is looking at
+         // anywhere else in the game and we likely don't need to serialize it for revisiting
+         
+         int pageCount = (machineInfo.craftables.Length / 5) + 1;
+         state int pageIndex = 0;
+        
+         HorizontalPagerSmall(sync:pageIndex, style = [@machine-panel-pager]) {
+                     
+             SvgIcon24(`T_UI_ShoulderButton_Left`, style = [@shoulder-button],  mouse:click => pageIndex--) {
+                 Label("LB", style = [@shoulder-button-label]);
+             }
+                 
+             repeat(i in pageCount) {
+                 PagerItemSmall(i);
+             }   
+                  
+             SvgIcon24(`T_UI_ShoulderButton_Right`, style = [@shoulder-button], mouse:click => pageIndex++) {
+                 Label("RB", style = [@shoulder-button-label], attr:right);
+             }  
+                      
+         }
+         
+         Subheader("Craftables", style = [@craftable-subheader]);
+         Div(style = [@subheader-decoration]);
+         
+         run {
+             if(pageIndex < 0) {
+                 pageIndex = pageCount-1;
+             }
+             else if(pageIndex == pageCount) {
+                 pageIndex = 0;
+             }
+         }                    
+                     
+         int pageOffset = pageIndex * 5;
+         int itemsOnPage = Mathf.Min(5, machineInfo.craftables.Length - pageOffset);
+          
+         repeat(i in itemsOnPage) {
+         
+             Craftable recipe = machineInfo.craftables[pageOffset + i];
+             CraftingRecipe(recipe.icon, recipe.name, true, mouse:click => eventQueue.SelectCraftable(recipe));
+             
+         }
+                         
+         Div(style = [@subheader-decoration], attr:bottom);
+
+    }
+    
+}
+
+typography ButtonLabel;
+
+template SelectCraftable_Crafting {
+
+    state TopLevelUIState topLevelState = $runtime.GetRootData<TopLevelUIState>();
+    
+    required Craftable recipe;
+    
+    render {
+        
+        MachineInfo machineInfo = topLevelState.machineInfo;
+        
+        Div(style = [@craftable-panel-column-container]) {
+            
+            Div(style = [@progress-column]) {
+            
+                SectionLabel(recipe.name, style = [@progress-label]);
+                
+                Div(style = [@machine-panel-progress-container]){
+        
+                    Div(style = [@machine-panel-progress-underlay]);
+                    Div(style:BackgroundImage = recipe.icon, style = [@current-crafting-icon]);
+                    Div(style = [@machine-panel-progress-overlay], style:RevealAmount = machineInfo.itemProgress);
+        
+                }
+                
+                if(machineInfo.IsCrafting) {
+                    Div(style = [@crafting-label-container]) {
+                        LabelSemiBold($"Crafting...     {(1f - machineInfo.itemProgress) * machineInfo.timePerItem:f2}s", style = [@crafting-label]);
+                        Div(style = [@crafting-icon]);
+                    }
+                }
+                
+            }
+            
+            Div(style = [@deco-column]) {
+                        
+                Div(style = [@input-decoration]);
+                
+                Div(style = [@output-decoration]);
+                
+            }
+                    
+            Div(style = [@input-output-column]) {
+                
+                
+                SectionLabel("Input", style:PreferredWidth = `150px`);
+                                    
+                Div(style = [@input-row]) {
+                
+                    repeat(ingredient in machineInfo.selectedRecipe.item.craftableItemDefine.ingredients) {
+                    
+                        InventorySlot(
+                            icon = ingredient.item.icon, 
+                            stackSize = ingredient.quantity, 
+                            cornerColor = `yellow`
+//                            attr:drag-target = $companion.GetDragAttribute(inventorySlot),
+//                            attr:drag-origin = $companion.IsDragOrigin(inventorySlot.slotId),
+//                            drag:create => $companion.CreateDrag(inventorySlot)
+//                            drag:drop<DragItemEvent> => topLevelState.eventQueue.MoveInventoryItemToMachine($companion.dragOriginSlot.slotId, inventorySlot.slotId)
+                        );
+                    
+                    }
+                    
+                }
+                
+                SectionLabel("Output", style:PreferredWidth = `150px`);
+                
+                InventorySlot(
+                    icon = machineInfo.selectedRecipe.item.icon,
+                    stackSize = machineInfo.output.amount,
+                    cornerColor = `clear`,
+                    attr:drag-target = "invalid",
+//                    drag:create => new DragItemEvent(machineInfo.selectedRecipe.item) // todo -- need an itemSlot instead, make containers for machine inputs/outputs
+                );
+                
+            }
+            
+        }
+        
+        Div(style = [@machine-amount-container]) {
+        
+            Div(style = [@amount-label-container]) {
+                LabelSemiBold($"<size 30pt>{machineInfo.enqueuedItemCount}<size 24pt><color rgb(117,117, 117)>/{machineInfo.maxItemCount}");
+            }
+            
+            // maybe we need to stop the machine to make more? figure out the UX here 
+            Slider(
+                rangeStart = 0,
+                rangeEnd = machineInfo.maxItemCount,
+                value = machineInfo.enqueuedItemCount,
+                onChange:value => topLevelState.eventQueue.SetMachineEnqueuedItemCount($newValue)
+            );
+            
+        }
+        
+        Div(style = [@button-container]) {
+        
+            Div(style = [@change-button], attr:disabled = machineInfo.output.amount > 0 || machineInfo.IsCrafting) {
+                ButtonLabel("Change", mouse:click => topLevelState.eventQueue.SetMachineViewState(MachineInfo.State.RecipeSelection));
+            }
+            
+            if(machineInfo.IsCrafting) {
+                Div(style = [@stop-crafting-button],  mouse:click => topLevelState.eventQueue.SetMachineViewState(MachineInfo.State.CraftingSetup)) {
+                    ButtonLabel("Stop");
+                }
+            }
+            else {
+                Div(style = [@start-crafting-button], attr:disabled = machineInfo.enqueuedItemCount == 0, mouse:click => topLevelState.eventQueue.SetMachineViewState(MachineInfo.State.Crafting)) {
+                    ButtonLabel("Start");
+                }
+            }
+            
+            Div(style = [@take-all-button], attr:disabled = machineInfo.output.amount == 0) {
+                ButtonLabel("Take All", mouse:click => topLevelState.eventQueue.TakeAllMachineOutput());
+            }
+            
+        }
+        
+        Div(style = [@mod-stats-container]) {
+        
+            Div(style = [@mod-stats-info]) {
+                
+                SectionLabel("Mods",  attr:stretch);
+                
+                Div(style = [@mod-container]) {
+                    InventorySlot(icon = default, stackSize = -1, cornerColor = `green`);
+                    InventorySlot(icon = default, stackSize = -1, cornerColor = `green`);
+                    InventorySlot(icon = default, stackSize = -1, cornerColor = `green`);
+                }
+                
+            }
+            
+            Div(style = [@mod-stats-separator]);
+            
+            Div(style = [@mod-stats-info]) {
+            
+                SectionLabel("Stats", attr:stretch);
+                
+                Div(style = [@stats-container]) {
+                    
+                    Div(style = [@stat-row]) {
+                        Label2("Time per Item");
+                        Label2($"{machineInfo.timePerItem} <color #9B9B9B>sec");
+                    }
+                    
+                    Div(style = [@stat-row]) {
+                        Label2("Remaining Time");
+                        if(machineInfo.state == MachineInfo.State.Crafting) {
+                            Label2($"{machineInfo.stats.remainingMinutes} <color #9B9B9B>mins</color><color white> {machineInfo.stats.remainingSeconds}<color #9B9B9B>s");
+                        }   
+                        else {
+                            Label2("---");
+                        }                 
+                    }
+                    
+                    Div(style = [@stat-row]) {
+                        Label2("Assigned Bots");
+                        Label2(machineInfo.stats.assignedBots);
+                    }                                        
+                   
+                }
+                
+            }
+        }
+    }
+    
+}
+
+template SelectCraftablePanel {
+
+    state TopLevelUIState topLevelState = $runtime.GetRootData<TopLevelUIState>();
+
+    render {
+
+        MachineInfo machineInfo = topLevelState.machineInfo;
+        
+        // if changed and not initializing, trigger a slide out anmation
+        state MachineInfo.State viewState = MachineInfo.State.Invalid;
+        
+        run viewState = machineInfo.state;
+        Div(style = [@craftable-panel-container], attr:showing-crafting = viewState != MachineInfo.State.RecipeSelection) {
+            
+            SelectCraftable_RecipeSelection(machineInfo);
+
+            if(machineInfo.selectedRecipe != null) {            
+                SelectCraftable_Crafting(machineInfo.selectedRecipe);
+            }
+            
+        }
+        
+
+    }
+    
+}

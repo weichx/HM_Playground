@@ -1,0 +1,112 @@
+﻿
+
+
+style <InventoryGrid> {
+    LayoutType = Stack;
+    AlignmentTargetX = Screen;
+    AlignmentDirectionX = End;
+    PreferredSize = 800px 1vh;
+    transition spring(default) = AlignmentOffSetX;
+
+    [init] {
+        AlignmentOffSetX = -1000px;
+    }
+    
+}
+
+style <InventorySlot> {
+    
+    PreferredSize = 73px 94px;
+    PaddingHorizontal = 1s;
+    Margin = 2px;
+    BackgroundTint = #1E222A;
+    BackgroundImage = "T_UI_Inventory_Base";
+    
+    [attr:drag-origin] {
+        Opacity = 50%;
+    }
+    
+}
+
+style inventory-grid {
+    PreferredSize = 400px 1cnt;
+    Padding = 1s;
+    LayoutType = HorizontalWrap;
+    MarginBottom = 32px;
+}
+
+style inventory-column {
+    PaddingTop = 32px;
+    PreferredSize = 464px 1s;
+    MarginLeft = 1s;
+    PaddingHorizontal = 1s;  
+} 
+
+style inventory-stack-corner {
+    BackgroundImage = "T_UI_Inventory_Corner";
+    PreferredSize = 9px;
+    MarginLeft = 1s;
+    MarginTop = 1s;
+}   
+
+style inventory-stack-base {
+    BackgroundImage = "T_UI_Inventory_Icon";
+    PreferredSize = 73px 73px;
+    LayoutType = Stack;
+    BackgroundTint = @backgroundBlue;
+    PixelSnapping = Layout;
+  
+    [hover] {
+        
+        [when parent attr:drag-target="valid"] {
+            BackgroundTint = @hoverBlue;
+        }
+         
+        [when parent attr:drag-target="invalid"] {
+            BackgroundTint = #572731;
+        }
+        
+    }
+        
+}
+
+style inventory-icon {
+    PreferredSize = 36px;
+    BackgroundSize = Contain;
+    Margin = 1s;
+}
+
+
+style horizontal-separator {
+    PreferredWidth = 10s;
+    PreferredHeight = 2px;
+    BackgroundColor = @decoratorGrey;
+}
+
+style decorated-heading {
+    AlignmentOffsetY = 16px;
+    TextFontSize = 28pt;
+    TextCharacterSpacing = 2;
+    
+}
+
+style inventory-ammo-heading {
+    MarginTop = 24px;
+}
+
+style inventory-ammo-separator {
+    MarginVertical = 12px;
+}
+
+style inventory-pager {
+    MarginTop = 12px;
+}
+
+style inventory-drag-preview {
+    LayerTarget = ViewOverlay;
+    LayoutBehavior = Ignored;
+    AlignmentTarget = Mouse;
+    AlignmentOffsetX = 10;
+    AlignmentOffsetY = 10;
+    PointerEvents = None;
+}

@@ -1,0 +1,29 @@
+﻿
+style <HorizontalPager> {
+    PreferredSize = 400px 32px;
+    MarginBottom = 12px;
+    BorderColor = @decoratorGrey;
+    BorderBottom = 2px;
+}
+
+
+style nav-item {
+    PreferredSize = 28px 26px;
+    LayoutType = Stack;
+    PaddingHorizontal = 1s;
+}
+
+style shoulder-button {
+    PreferredSize = 24px;
+    TextColor = #A5A5A5;
+    MarginLeft = 40px;
+}
+
+style shoulder-button-label {
+    TextColor = #162A43;
+    MarginLeft = 5px;
+    MarginTop = 6px;
+    [attr:right] {
+        MarginLeft = 0px;
+    }
+}

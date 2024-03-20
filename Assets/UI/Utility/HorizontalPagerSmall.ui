@@ -1,0 +1,40 @@
+﻿using HostileMars.UI;
+using System.Collections.Generic;
+using System;
+
+@TogglableGroup(selectedIndex = selectedTab) [selectedIndex, controller]
+template HorizontalPagerSmall {
+
+    optional int selectedTab;
+    
+    slot implicit;
+    
+    render {
+    
+        // we want first frame we have a layout 
+        state int frameId = 0;
+        
+        Div(style = [@pager-small-indicator-shadow], attr:animation-ready = frameId > 2) [&runner] {
+           Div(style = [@pager-small-item-highlight]);
+           Div(style = [@pager-small-indicator-line]);
+        }
+        
+        Div(style = [@pager-small-content]) {
+                                         
+            render slot->implicit;
+            
+        }
+            
+        run {
+            
+            ElementReference targetElement = controller.GetSelectedElement();
+            runner.style.SetAlignmentOffsetX(targetElement.GetLayoutLocalPosition().x);
+            runner.style.SetPreferredWidth(targetElement.GetLayoutSize().width);
+            frameId++;
+            selectedTab = selectedIndex;
+            
+        }
+          
+    }
+    
+}
